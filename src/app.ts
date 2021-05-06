@@ -1,17 +1,18 @@
-import * as express from 'express';
+import express from 'express';
 import authRouter from './routes/authRouter';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { dbConfig } from './config/db';
+import helmet from 'helmet';
+import cors from 'cors';
 import bodyParser = require('body-parser');
 
 export const appPromise = (async (): Promise<express.Application> => {
   const app = express();
 
-  await mongoose.connect(dbConfig.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(dbConfig.mongoURI as string, dbConfig.mongoOptions);
 
+  app.use(helmet());
+  app.use(cors());
   app.use(bodyParser.json({
     inflate: true,
   }));

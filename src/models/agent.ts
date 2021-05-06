@@ -8,16 +8,16 @@ class Agent {
   public businessName!: string;
 
   @prop({ required: true })
-  password!: string;
+  public password!: string;
 
-  @prop({ required: true })
-  accountType!: string;
-
-  @prop({ required: false })
-  createdAt: Date;
+  @prop({ default: 'free' })
+  public accountType: string;
 
   @prop({ required: false })
-  updatedAt: Date;
+  public createdAt: Date;
+
+  @prop({ required: false })
+  public updatedAt: Date;
 }
 
 const agentModel = getModelForClass(Agent);
